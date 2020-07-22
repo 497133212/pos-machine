@@ -1,3 +1,8 @@
+/**
+ * 输出receipt的结果。
+ *
+ * @param {barcodes} 订单商品信息。
+ */
 function printReceipt(barcodes) {
     let itemDetails = decodeBarcodes(barcodes);
     let itemDetailsWithTotalPrice = calculateSubtotalPrice(itemDetails);
@@ -6,6 +11,9 @@ function printReceipt(barcodes) {
     console.log(receipt)
 }
 
+/**
+ * 商品目录。
+ */
 function dataBase() {
     let data =  [
         {
@@ -42,6 +50,11 @@ function dataBase() {
     return data;
 }
 
+/**
+ * 解析商品信息,将商品的条码和数量保存进数组里，返回详细的订单信息。
+ *
+ * @param {barcodes} 订单商品信息。
+ */
 function decodeBarcodes(barcodes) {
     let items = [];
     let barcode = '';
@@ -64,6 +77,12 @@ function decodeBarcodes(barcodes) {
     return itemDetails;
 }
 
+/**
+ * 返回商品详细信息。
+ *
+ * @param {items} 。
+ * @return {itemDetails} 
+ */
 function loadAllItem(items) {
     let itemDetails = [];
     let itemData = dataBase();
@@ -77,6 +96,12 @@ function loadAllItem(items) {
     return itemDetails;
 }
 
+/**
+ * 计算每个商品的总价。
+ *
+ * @param {itemDetails} 。
+ * @return {itemDetails} 
+ */
 function calculateSubtotalPrice(itemDetails) {
     itemDetails.forEach(e => {
         e.totalPrice = e.quantity * e.price;
@@ -84,6 +109,13 @@ function calculateSubtotalPrice(itemDetails) {
     return itemDetails;
 }
 
+
+/**
+ * 计算所有商品的总价。
+ *
+ * @param {itemDetailsWithTotalPrice} 。
+ * @return {totalPrice} 
+ */
 function calculateTotalPrice(itemDetailsWithTotalPrice) {
     let totalPrice = 0;
     itemDetailsWithTotalPrice.forEach(e => {
@@ -92,6 +124,13 @@ function calculateTotalPrice(itemDetailsWithTotalPrice) {
     return totalPrice;
 }
 
+
+/**
+ * 返回格式处理后的receipt。
+ *
+ * @param {itemDetailsWithTotalPrice,totalPrice} 。
+ * @return {receipt} 
+ */
 function formatReceipt(itemDetailsWithTotalPrice, totalPrice) {
     let receiptInfo = '';
     let receipt = '';
@@ -108,10 +147,12 @@ ${receiptInfo}
 ----------------------
 Total: ${totalPrice} (yuan)
 **********************`;
-    console.log(receipt);
+    return receipt;
 }
 
 
 module.exports = {
     printReceipt
 };
+
+
